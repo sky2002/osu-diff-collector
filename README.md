@@ -1,6 +1,6 @@
 # osu-diff Collector
 
-> Linux 在线上传的服务端兼容更新正在等待当前传输结束；在此提示移除前，Linux 用户请先使用“仅收集打包”。Windows 上传与下载不受影响。
+> 服务端已于 2026-09-19 完成 Linux 兼容更新，Windows 和 Linux 均可直接使用“收集并上传”。
 
 用于收集本机 osu!mania **原生 4K** replay 及对应谱面的桌面工具，支持 Windows x64 和 Linux x86_64。
 
