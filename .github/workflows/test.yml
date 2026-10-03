@@ -1,0 +1,29 @@
+name: Collector tests
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  test:
+    strategy:
+      matrix:
+        os: [windows-latest, ubuntu-latest]
+        python: ['3.11', '3.13']
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - name: Linux display dependencies
+        if: runner.os == 'Linux'
+        run: sudo apt-get update && sudo apt-get install -y xvfb xauth python3-tk
+      - name: Windows tests
+        if: runner.os == 'Windows'
+        run: python -m unittest discover -v
+      - name: Linux tests
+        if: runner.os == 'Linux'
+        run: xvfb-run -a python -m unittest discover -v
+      - name: Zipapp build and command check
+        run: |
+          python tools/build_collector.py
+          python dist/osu-diff-collector.pyz --help

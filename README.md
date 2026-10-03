@@ -2,7 +2,11 @@
 
 导出本机 osu!mania **原生 4K** replay 与对应谱面，支持 Windows x64 和 Linux x86_64。
 
-v0.1.1 可同时导出 stable 和 lazer，自选合成一个 ZIP 或按客户端分为两个 ZIP。已移除上传、上传码与续传功能，导出后自行发送文件。
+可同时导出 stable 和 lazer，自选合成一个 ZIP 或按客户端分为两个 ZIP。没有上传、上传码、续传或遥测功能，导出后自行发送文件。
+
+本仓库现在同时维护 **Windows / Linux 导出器源码、构建脚本和历史 Release**。
+源码采用 **AGPL-3.0-only**，当前开发版本为 **0.1.2.dev0**。已发布的 v0.1.0 / v0.1.1
+二进制保留；它们早于这次源码拆分，并非当前源码的构建结果。
 
 ## 下载
 
@@ -55,10 +59,41 @@ DEB 使用 `sudo apt install ./文件名.deb`，RPM 使用 `sudo dnf install ./�
 
 包内还包含原始 replay 内的玩家名及可能含本地路径的日志。不复制游戏登录配置。没有网络上传功能。
 
+## 从源码运行
+
+需要 Python 3.11+ 和 Tcl/Tk（Windows 官方 Python 安装包可选装；Debian/Ubuntu 为 `python3-tk`）。
+没有第三方 Python 运行依赖。
+
+```bash
+python -m osu_diff
+python -m osu_diff discover
+python -m osu_diff collect-game /path/to/osu --output /path/to/export --package-mode separate
+python -m osu_diff verify /path/to/export.zip
+python -m unittest discover -v
+```
+
+不带参数启动 GUI；Windows 命令中的路径换为本机路径即可。
+源码运行、Windows EXE、Linux 五种安装格式及 zipapp 构建见 [构建说明](docs/building.md)。
+采集范围、隐私、电脑标识和 ZIP 格式见 [采集说明](docs/collection.md)。
+
+源码只包含导出、校验、界面和构建测试，不包含训练模型、判定后端、收件服务器、
+下载器或真实玩家数据。测试数据由代码合成。GitHub Actions 在 Windows/Linux 上运行测试。
+
+## 许可证
+
+Copyright (C) 2026 sky2002。项目自身代码采用 [GNU AGPLv3，限第 3 版](LICENSE)。
+允许合规商用；分发及修改后提供网络交互服务时须遵守相应源码提供义务。
+不附加“禁止商用”限制，也不把第三方运行库改标为自己的许可证。
+详见 [第三方许可说明](THIRD_PARTY_NOTICES.md)。采集得到的 replay / 谱面不受本软件许可证授权。
+
 ## 校验与验证范围
 
 发布页附带 `SHA256SUMS`。Linux：`sha256sum -c SHA256SUMS --ignore-missing`；Windows：`Get-FileHash .\osu-diff-collector.exe -Algorithm SHA256`。
 
-Windows 与 Debian 12 各运行 72 项回归测试，无失败，分别跳过 1 / 3 项平台专属检查。五种 Linux 包逐一验证解包、CLI、Xvfb 界面启动、合成 stable / lazer 合并与分开导出、ZIP 哈希及重复导出的电脑 ID 一致性。五种包内二进制一致，ELF 的最高 GLIBC 符号要求为 2.36。
+历史 v0.1.1：Windows 与 Debian 12 各运行 72 项回归测试，无失败，分别跳过 1 / 3 项平台专属检查。五种 Linux 包逐一验证解包、CLI、Xvfb 界面启动、合成 stable / lazer 合并与分开导出、ZIP 哈希及重复导出的电脑 ID 一致性。五种包内二进制一致，ELF 的最高 GLIBC 符号要求为 2.36。
 
-未逐一在所有发行版真实桌面上人工验收，也未重新扫描参与者真实游戏库。本仓库用于发布二进制与使用说明，旧版本保留在 Releases。
+独立源码的测试覆盖筛选、缺谱、损坏文件、双客户端合并/分开、去重、失败清理、
+Windows 文件权限、Linux/Wine 路径、电脑 ID、ZIP 校验及 GUI 操作。当前源码的实际
+验收记录见 [源码发布验证](docs/source-validation.md)。
+
+未逐一在所有发行版真实桌面上人工验收，也未重新扫描参与者真实游戏库。旧版本保留在 Releases。

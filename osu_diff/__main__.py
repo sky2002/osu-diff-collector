@@ -1,0 +1,6 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+# Copyright (C) 2026 sky2002
+
+from .cli import main
+
+raise SystemExit(main())

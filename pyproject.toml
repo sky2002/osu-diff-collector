@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "osu-diff-collector"
+version = "0.1.2.dev0"
+description = "Offline osu!mania 4K replay and beatmap exporter for Windows and Linux"
+readme = "README.md"
+requires-python = ">=3.11"
+license = "AGPL-3.0-only"
+license-files = ["LICENSE", "THIRD_PARTY_NOTICES.md", "licenses/*.txt"]
+authors = [{name = "sky2002"}]
+dependencies = []
+
+[project.urls]
+Repository = "https://github.com/sky2002/osu-diff-collector"
+Issues = "https://github.com/sky2002/osu-diff-collector/issues"
+
+[project.scripts]
+osu-diff-collector = "osu_diff.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["osu_diff*"]
