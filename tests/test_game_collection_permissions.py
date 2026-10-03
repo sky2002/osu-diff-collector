@@ -18,7 +18,7 @@ from tests.samples import BEATMAP, replay
 class CollectionPermissionsTests(unittest.TestCase):
     def test_export_inherits_destination_read_permissions(self):
         with tempfile.TemporaryDirectory() as temporary:
-            root = Path(temporary)
+            root = Path(temporary).resolve()
             game = root / "game"
             (game / "Songs").mkdir(parents=True)
             (game / "Data/r").mkdir(parents=True)

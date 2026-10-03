@@ -28,7 +28,7 @@ for name in ('dataset', 'judgement', 'stable_judgement', 'lazer_judgement',
 
     def test_verify_cli_accepts_valid_export_and_rejects_corruption(self):
         with tempfile.TemporaryDirectory() as temporary:
-            root = Path(temporary)
+            root = Path(temporary).resolve()
             game = root / "game"
             (game / "Songs").mkdir(parents=True)
             (game / "Data/r").mkdir(parents=True)

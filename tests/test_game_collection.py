@@ -17,7 +17,7 @@ class GameFolderImportTests(unittest.TestCase):
     def setUp(self):
         self.temp = tempfile.TemporaryDirectory()
         self.addCleanup(self.temp.cleanup)
-        self.root = Path(self.temp.name)
+        self.root = Path(self.temp.name).resolve()
 
     @unittest.skipUnless(os.name == "nt", "Windows registry identity")
     def test_stable_and_lazer_packages_share_machine_id_across_output_locations(self):

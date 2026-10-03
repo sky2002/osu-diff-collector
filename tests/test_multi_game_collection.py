@@ -22,7 +22,7 @@ class MultiGameCollectionTests(unittest.TestCase):
     def setUp(self):
         temporary = tempfile.TemporaryDirectory()
         self.addCleanup(temporary.cleanup)
-        self.root = Path(temporary.name)
+        self.root = Path(temporary.name).resolve()
         self.stable = self.root / "stable"
         self.lazer = self.root / "lazer"
         extension = lzma.compress(b'{"mods":[]}', format=lzma.FORMAT_ALONE)

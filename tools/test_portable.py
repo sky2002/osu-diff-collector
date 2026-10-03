@@ -32,7 +32,7 @@ def main():
     assert __version__ in run("--version")
     identities = []
     with tempfile.TemporaryDirectory(prefix="collector-smoke-") as temporary:
-        root = Path(temporary)
+        root = Path(temporary).resolve()
         games = [root / client for client in ("stable", "lazer")]
         expected = {hashlib.sha256(data).hexdigest() for data in (BEATMAP, replay())}
         for game in games:

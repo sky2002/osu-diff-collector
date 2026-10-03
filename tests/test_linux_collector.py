@@ -20,7 +20,7 @@ class LinuxCollectorTests(unittest.TestCase):
     def setUp(self):
         temporary = tempfile.TemporaryDirectory()
         self.addCleanup(temporary.cleanup)
-        self.root = Path(temporary.name)
+        self.root = Path(temporary.name).resolve()
         self.addCleanup(patch.stopall)
         patch("sys.platform", "linux").start()
         patch("pathlib.Path.home", return_value=self.root).start()

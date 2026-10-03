@@ -19,7 +19,7 @@ class CollectorGuiTests(unittest.TestCase):
     def setUp(self):
         temporary = tempfile.TemporaryDirectory()
         self.addCleanup(temporary.cleanup)
-        self.directory = Path(temporary.name)
+        self.directory = Path(temporary.name).resolve()
         self.discovered = []
         for client in ("stable", "lazer"):
             game = self.directory / client
